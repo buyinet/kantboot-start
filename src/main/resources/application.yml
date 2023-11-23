@@ -1,0 +1,44 @@
+server:
+  port: 10001
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      password: woshifangziyuan1
+      timeout: 30s
+      database: 2
+      lettuce:
+        pool:
+          min-idle: 0
+          max-idle: 8
+          max-active: 8
+          max-wait: -1ms
+  application:
+    name: system-user-web
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: woshifangziyuan1
+    url: jdbc:mysql://localhost:3306/kantboot?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull
+  jpa:
+    open-in-view: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibenate:
+        format_sql: false
+        enable_lazy_load_no_trans: true
+        bytecode:
+          use_reflection_optimizer: false
+        # ????????mysql8
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
+    jackson:
+      date-format: yyyy-MM-dd HH:mm:ss
+      time-zone: GMT+8

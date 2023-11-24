@@ -1,6 +1,5 @@
-package com.kantboot.business.goods.domain.entity;
+package com.kantboot.business.goods.domain.vo;
 
-import com.kantboot.business.goods.domain.vo.BusGoodsWarehouseNoRelVO;
 import com.kantboot.util.core.jpa.KantbootGenerationType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,22 +14,20 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 /**
- * 门店
+ * 商品仓库
  * @author 方某方
  */
 @Entity
 @Getter
 @Setter
-@Table(name = "bus_goods_store")
+@Table(name = "bus_goods_warehouse")
 @Accessors(chain = true)
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
 @DynamicInsert
-public class BusGoodsStore implements Serializable {
-
+public class BusGoodsWarehouseNoRelVO implements Serializable {
 
     /**
      * 主键
@@ -42,58 +39,28 @@ public class BusGoodsStore implements Serializable {
     private Long id;
 
     /**
-     * 名称
+     * 仓库名称
      */
-    @Column(name = "name")
+    @Column(name = "t_name")
     private String name;
 
     /**
-     * 类型编码，驼峰式
-     * 直营：direct
-     * 联营：join
-     * 加盟：franchise
+     * 仓库负责人
      */
-    @Column(name = "type_code")
-    private String typeCode;
+    @Column(name = "emp_id_of_manager")
+    private Long empIdOfManager;
 
     /**
-     * 开业时间
+     * 门店id
      */
-    @Column(name = "gmt_open")
-    private Date gmtOpen;
+    @Column(name = "store_id")
+    private Long storeId;
 
     /**
-     * 面积
+     * 备注
      */
-    @Column(name = "area")
-    private Double area;
-
-    /**
-     * 门店地址
-     */
-    @Column(name = "address")
-    private String address;
-
-    /**
-     * 门店电话
-     */
-    @Column(name = "phone")
-    private String phone;
-
-    /**
-     * 门店启用状态
-     */
-    @Column(name = "enable_status")
-    private Boolean enableStatus;
-
-    /**
-     * 关联的仓库
-     */
-    @OneToMany
-    @JoinColumn(name = "store_id",referencedColumnName = "id",insertable = false,updatable = false)
-    private List<BusGoodsWarehouseNoRelVO> warehouse;
-
-
+    @Column(name = "t_remark")
+    private String remark;
 
     /**
      * 创建时间

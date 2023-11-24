@@ -1,0 +1,53 @@
+version: '3.7'
+
+services:
+
+  # 启动mysql容器
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: woshifangziyuan1
+    ports:
+      - "3306:3306"
+    # 将sql目录下的sql文件挂载到容器的docker-entrypoint-initdb.d目录下，容器启动时会自动执行sql文件
+    volumes:
+      - ./db/sql:/docker-entrypoint-initdb.d
+    # 固定ip
+    networks:
+      kantbooot_net:
+        ipv4_address: 172.16.0.2
+
+  # 启动redis容器
+  redis:
+    image: redis:6.0.9
+    command: redis-server --requirepass woshifangziyuan1 --bind 0.0.0.0
+    ports:
+      - "6379:6379"
+    networks:
+      kantbooot_net:
+        ipv4_address: 172.16.0.3
+
+  # java17环境
+  kantbootStart:
+    image: openjdk:17
+    ports:
+      - "10001:10001"
+    volumes:
+        - ./target/kantboot-start-1.0.0.jar:/kantboot-start-1.0.0.jar
+        - ./application/application.yml:/application.yml
+    command: java -jar /kantboot-start-1.0.0.jar --spring.config.location=/application.yml --server.port=10001
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      kantbooot_net:
+        ipv4_address: 172.16.0.4
+
+networks:
+  kantbooot_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.0.0/24
+
+

@@ -7,7 +7,6 @@ import com.kantboot.util.core.param.PageParam;
 import com.kantboot.util.core.redis.RedisUtil;
 import com.kantboot.util.core.result.PageResult;
 import jakarta.annotation.Resource;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +32,7 @@ public class SysSettingServiceImpl implements ISysSettingService {
     private RedisUtil redisUtil;
 
     @Override
-    @Cacheable(value = REDIS_KEY_PREFIX,key = "#groupCode+':map'")
+//    @Cacheable(value = REDIS_KEY_PREFIX,key = "#groupCode+':map'")
     public HashMap<String,String> getMapByGroupCode(String groupCode) {
 
         HashMap<String,String> result = new HashMap<>(100);
@@ -46,7 +45,7 @@ public class SysSettingServiceImpl implements ISysSettingService {
     }
 
     @Override
-    @Cacheable(value = REDIS_KEY_PREFIX,key = "#groupCode+':'+#code+':value'")
+//    @Cacheable(value = REDIS_KEY_PREFIX,key = "#groupCode+':'+#code+':value'")
     public String getValue(String groupCode, String code) {
         SysSetting byGroupCodeAndCode = repository.findByGroupCodeAndCode(groupCode, code);
         if(byGroupCodeAndCode == null){

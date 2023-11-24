@@ -85,7 +85,7 @@ public class BusGoodsWarehouseDetail {
      * 业务类别编码
      */
     @Column(name = "business_code",length = 64)
-    private String businessCode;
+    private String busCode;
 
     /**
      * 关联的业务code

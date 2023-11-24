@@ -125,6 +125,6 @@ public class BusEmp implements Serializable {
      */
     @OneToOne
     @JoinColumn(name = "goods_store_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private BusGoodsStore goodsStore;
+    private BusGoodsStore store;
 
 }

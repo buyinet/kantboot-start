@@ -250,8 +250,8 @@ public class BusGoodsWarehouseStockServiceImpl implements IBusGoodsWarehouseStoc
         busGoodsWarehouseDetail.setStockChange(entity.getStockChange());
         busGoodsWarehouseDetail.setStockNew(result.getStock());
         busGoodsWarehouseDetail.setWarehouseId(entity.getWarehouseId());
-        busGoodsWarehouseDetail.setBusinessCode(entity.getBusinessCode());
-        busGoodsWarehouseDetail.setBusinessCode(entity.getBusinessCode());
+        busGoodsWarehouseDetail.setBusCode(entity.getBusinessCode());
+        busGoodsWarehouseDetail.setBusCode(entity.getBusinessCode());
 
         if (entity.getGmtOperate() == null) {
             busGoodsWarehouseDetail.setGmtOperate(new Date());
@@ -317,7 +317,7 @@ public class BusGoodsWarehouseStockServiceImpl implements IBusGoodsWarehouseStoc
             busGoodsWarehouseDetail.setWarehouseId(busGoodsWarehouseChangeDTO.getWarehouseId());
             busGoodsWarehouseDetail.setStockChange(busGoodsWarehouseChangeDTO.getStockChange());
             busGoodsWarehouseDetail.setRemark(busGoodsWarehouseChangeDTO.getRemark());
-            busGoodsWarehouseDetail.setBusinessCode(busGoodsWarehouseChangeDTO.getBusinessCode());
+            busGoodsWarehouseDetail.setBusCode(busGoodsWarehouseChangeDTO.getBusinessCode());
             busGoodsWarehouseDetail.setBusinessOrder(busGoodsWarehouseChangeDTO.getBusinessOrder());
             busGoodsWarehouseDetail.setGmtOperate(busGoodsWarehouseChangeDTO.getGmtOperate());
             detailList.add(busGoodsWarehouseDetail);

@@ -161,9 +161,9 @@ public class BusGoodsSaleOrderServiceImpl implements IBusGoodsSaleOrderService {
             if(busGoodsProcureOrderIn.getGoods().getPurchasePrice()==null){
                 continue;
             }
-            // 采购价是采购价*数量*折扣
+            // 批发价是批发价*数量*折扣
             // 使用BigDecimal计算
-            BigDecimal purchasePrice = new BigDecimal(busGoodsProcureOrderIn.getGoods().getPurchasePrice());
+            BigDecimal purchasePrice = new BigDecimal(busGoodsProcureOrderIn.getGoods().getWholesalePrice());
             BigDecimal number = new BigDecimal(busGoodsProcureOrderIn.getNumber());
             BigDecimal discount = new BigDecimal(busGoodsProcureOrderIn.getDiscount());
             total = total.add(purchasePrice.multiply(number).multiply(discount));

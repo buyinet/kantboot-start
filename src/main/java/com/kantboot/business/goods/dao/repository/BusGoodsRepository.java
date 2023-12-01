@@ -24,6 +24,7 @@ public interface BusGoodsRepository extends JpaRepository<BusGoods, Long> {
      */
     @Query("""
    FROM BusGoods t
+   LEFT JOIN BusGoodsWarehouseStock s ON t.id = s.goodsId
    WHERE
    1 = 1
     AND (:#{#dto.id} IS NULL OR t.id = :#{#dto.id})
@@ -43,6 +44,7 @@ public interface BusGoodsRepository extends JpaRepository<BusGoods, Long> {
     AND (:#{#dto.maxRetailPrice} IS NULL OR t.retailPrice <= :#{#dto.maxRetailPrice})
     AND (:#{#dto.minMinOrder} IS NULL OR t.minOrder >= :#{#dto.minMinOrder})
     AND (:#{#dto.maxMinOrder} IS NULL OR t.minOrder <= :#{#dto.maxMinOrder})
+    AND (:#{#dto.warehouseId} IS NULL OR s.warehouseId = :#{#dto.warehouseId})
     AND t.parentId IS NULL
    ORDER BY t.id DESC
 """)
@@ -59,6 +61,7 @@ public interface BusGoodsRepository extends JpaRepository<BusGoods, Long> {
      */
     @Query("""
    FROM BusGoods t
+   LEFT JOIN BusGoodsWarehouseStock s ON t.id = s.goodsId
    WHERE
    1 = 1
     AND (:#{#dto.id} IS NULL OR t.id = :#{#dto.id})
@@ -78,6 +81,7 @@ public interface BusGoodsRepository extends JpaRepository<BusGoods, Long> {
     AND (:#{#dto.maxRetailPrice} IS NULL OR t.retailPrice <= :#{#dto.maxRetailPrice})
     AND (:#{#dto.minMinOrder} IS NULL OR t.minOrder >= :#{#dto.minMinOrder})
     AND (:#{#dto.maxMinOrder} IS NULL OR t.minOrder <= :#{#dto.maxMinOrder})
+    AND (:#{#dto.warehouseId} IS NULL OR s.warehouseId = :#{#dto.warehouseId})
    ORDER BY t.id DESC
 """)
     Page<BusGoods> getBodyData(

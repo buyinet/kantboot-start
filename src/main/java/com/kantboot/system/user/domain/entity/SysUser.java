@@ -37,6 +37,7 @@ public class SysUser implements Serializable {
     @Column(name = "id")
     private Long id;
 
+
     /**
      * 用户账号
      */

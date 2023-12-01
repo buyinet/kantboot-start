@@ -207,14 +207,12 @@ public class BusGoodsWarehouseStockServiceImpl implements IBusGoodsWarehouseStoc
         busGoodsWarehouseChangeDTO.setStockChange(stockChange);
         busGoodsWarehouseChangeDTO.setRemark(remark);
         busGoodsWarehouseChangeDTO.setBusinessCode("check");
-        busGoodsWarehouseChangeDTO.setBusinessCode("check-"+ UUID.randomUUID().toString().replaceAll("-",""));
+        busGoodsWarehouseChangeDTO.setBusinessOrder("check"+UUID.randomUUID().toString());
         stockChange(busGoodsWarehouseChangeDTO);
     }
 
     @Resource
     private BusGoodsWarehouseDetailRepository detailRepository;
-
-
 
 
     @Override
@@ -251,7 +249,7 @@ public class BusGoodsWarehouseStockServiceImpl implements IBusGoodsWarehouseStoc
         busGoodsWarehouseDetail.setStockNew(result.getStock());
         busGoodsWarehouseDetail.setWarehouseId(entity.getWarehouseId());
         busGoodsWarehouseDetail.setBusCode(entity.getBusinessCode());
-        busGoodsWarehouseDetail.setBusCode(entity.getBusinessCode());
+        busGoodsWarehouseDetail.setBusinessOrder(entity.getBusinessOrder());
 
         if (entity.getGmtOperate() == null) {
             busGoodsWarehouseDetail.setGmtOperate(new Date());
@@ -266,7 +264,7 @@ public class BusGoodsWarehouseStockServiceImpl implements IBusGoodsWarehouseStoc
     }
 
     @Override
-    public void batchStockChange(List<BusGoodsWarehouseChangeDTO> list) {
+    public List<BusGoodsWarehouseDetail> batchStockChange(List<BusGoodsWarehouseChangeDTO> list) {
         String redisKey = "goodsWarehouse:lock:" + list.get(0).getWarehouseId();
         // 加锁
         if (redisUtil.lock(redisKey,50, TimeUnit.SECONDS)) {
@@ -339,11 +337,12 @@ public class BusGoodsWarehouseStockServiceImpl implements IBusGoodsWarehouseStoc
 
         start = System.currentTimeMillis();
         repository.saveAll(byGoodsIds);
-        detailRepository.saveAll(detailList);
+        List<BusGoodsWarehouseDetail> busGoodsWarehouseDetails = detailRepository.saveAll(detailList);
         redisUtil.unlock(redisKey);
         end = System.currentTimeMillis();
 
         log.info("保存时间：{}", end - start);
+        return busGoodsWarehouseDetails;
 
     }
 

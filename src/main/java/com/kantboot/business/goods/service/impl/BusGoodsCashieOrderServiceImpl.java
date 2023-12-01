@@ -102,7 +102,8 @@ public class BusGoodsCashieOrderServiceImpl implements IBusGoodsCashieOrderServi
         }
         inRepository.saveAll(inList);
         // 设置主表实收金额
-        save.setRealAmount(entity.getAmount());
+//        save.setRealAmount(entity.getAmount());
+        save.setRealAmount(entity.getRealAmount());
 
         // 设置主表总价
         // 打折

@@ -17,6 +17,11 @@ public class BusGoodsSearchDTO {
      */
     private String code;
 
+    /**
+     * 仓库id
+     */
+    private Long warehouseId;
+
     private String name;
 
     private String numberStr;

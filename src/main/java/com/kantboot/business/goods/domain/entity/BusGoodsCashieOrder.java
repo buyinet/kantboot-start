@@ -92,7 +92,6 @@ public class BusGoodsCashieOrder {
     @JoinColumn(name = "emp_id",insertable = false,updatable = false)
     private BusEmp emp;
 
-
     /**
      * 仓库id
      */

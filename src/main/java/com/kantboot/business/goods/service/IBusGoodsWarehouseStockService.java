@@ -2,6 +2,7 @@ package com.kantboot.business.goods.service;
 
 import com.kantboot.business.goods.domain.dto.BusGoodsWarehouseChangeDTO;
 import com.kantboot.business.goods.domain.dto.BusGoodsWarehouseStockDTO;
+import com.kantboot.business.goods.domain.entity.BusGoodsWarehouseDetail;
 import com.kantboot.business.goods.domain.entity.BusGoodsWarehouseStock;
 import com.kantboot.business.goods.domain.vo.BusGoodsWarehouseStockStatisticsVO;
 import com.kantboot.util.core.param.PageParam;
@@ -33,7 +34,7 @@ public interface IBusGoodsWarehouseStockService {
     /**
      * 批量修改
      */
-    void batchStockChange(List<BusGoodsWarehouseChangeDTO> list);
+    List<BusGoodsWarehouseDetail> batchStockChange(List<BusGoodsWarehouseChangeDTO> list);
 
     /**
      * 根据id查询

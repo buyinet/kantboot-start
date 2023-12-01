@@ -1,6 +1,5 @@
 package com.kantboot.business.goods.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kantboot.util.core.jpa.KantbootGenerationType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,23 +13,23 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
- * 商品仓库
+ * 商品仓库库存表
  * @author 方某方
  */
 @Entity
 @Getter
 @Setter
-@Table(name = "bus_goods_warehouse")
+@Table(name = "bus_goods_warehouse_check")
 @Accessors(chain = true)
 @EntityListeners(AuditingEntityListener.class)
 @DynamicUpdate
 @DynamicInsert
-public class BusGoodsWarehouse implements Serializable {
+public class BusGoodsWarehouseStockCheck implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 主键
@@ -42,62 +41,69 @@ public class BusGoodsWarehouse implements Serializable {
     private Long id;
 
     /**
-     * 仓库名称
+     * 组id
      */
-    @Column(name = "t_name")
-    private String name;
+    @Column(name = "group_id")
+    private Long groupId;
 
     /**
-     * 仓库负责人
+     * 商品id
      */
-    @Column(name = "emp_id_of_manager")
-    private Long empIdOfManager;
+    @Column(name = "goods_id")
+    private Long goodsId;
 
     /**
-     * 仓库负责人
+     * 仓库id
      */
-    @OneToOne
-    @JoinColumn(name = "emp_id_of_manager",referencedColumnName = "id",insertable = false,updatable = false)
-    private BusEmp empOfManager;
+    @Column(name = "warehouse_id")
+    private Long warehouseId;
 
     /**
-     * 门店id
+     * 原库存
      */
-    @Column(name = "store_id")
-    private Long storeId;
+    @Column(name = "stock_old")
+    private Long stockOld;
 
     /**
-     * 门店
+     * 新库存
      */
-    @OneToOne
-    @JoinColumn(name = "store_id",referencedColumnName = "id",insertable = false,updatable = false)
-    private BusGoodsStore store;
+    @Column(name = "stock_new")
+    private Long stockNew;
 
     /**
-     * 关联库存
+     * 库存变化
      */
-    @JsonIgnore
-    @OneToMany
-    @JoinColumn(name = "warehouse_id",referencedColumnName = "id",insertable = false,updatable = false)
-    private List<BusGoodsWarehouseStock> stock;
+    @Column(name = "stock_change")
+    private Long stockChange;
 
     /**
-     * 从库存中获取商品列表
+     * 业务单号
      */
-    @Transient
-    private List<BusGoods> goodsList;
+    @Column(name = "business_order")
+    private String businessOrder;
 
-    public List<BusGoods> getGoodsList() {
-        if(this.stock!=null){
-            return this.stock.stream().map(BusGoodsWarehouseStock::getGoods).toList();
-        }
-        return new ArrayList<>();
-    }
+    /**
+     * 改变前的数量采购价
+     */
+    @Column(name = "before_purchase_price")
+    private Double beforePurchasePrice;
+
+    /**
+     * 改变后的数量采购价
+     */
+    @Column(name = "after_purchase_price")
+    private Double afterPurchasePrice;
+
+    /**
+     * 改变的数量采购价
+     */
+    @Column(name = "change_purchase_price")
+    private Double changePurchasePrice;
 
     /**
      * 备注
      */
-    @Column(name = "t_remark")
+    @Column(name = "remark")
     private String remark;
 
     /**
@@ -115,5 +121,6 @@ public class BusGoodsWarehouse implements Serializable {
     @LastModifiedDate
     @Column(name = "gmt_modified")
     private Date gmtModified;
+
 
 }

@@ -14,7 +14,7 @@ services:
       - ./db/sql:/docker-entrypoint-initdb.d
     # 固定ip
     networks:
-      kantbooot_net:
+      mynet:
         ipv4_address: 172.16.0.2
 
   # 启动redis容器
@@ -24,7 +24,7 @@ services:
     ports:
       - "6379:6379"
     networks:
-      kantbooot_net:
+      mynet:
         ipv4_address: 172.16.0.3
 
   # java17环境
@@ -40,11 +40,11 @@ services:
       - mysql
       - redis
     networks:
-      kantbooot_net:
+      mynet:
         ipv4_address: 172.16.0.4
 
 networks:
-  kantbooot_net:
+  mynet:
     driver: bridge
     ipam:
       config:

@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 商品仓库库存表
+ * 商品盘点表
  * @author 方某方
  */
 @Entity
